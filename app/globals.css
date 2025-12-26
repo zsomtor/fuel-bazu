@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Fire animation */
+@keyframes flicker {
+  0% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(1.05) scaleX(0.95);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleY(0.95) scaleX(1.05);
+    opacity: 1;
+  }
+}
+
+/* Fire intensity classes */
+.fire-tiny {
+  background: linear-gradient(to top, #ff6600, #ff9933, #ffcc00);
+}
+
+.fire-small {
+  background: linear-gradient(to top, #ff4400, #ff7700, #ffaa00, #ffdd00);
+}
+
+.fire-medium {
+  background: linear-gradient(to top, #ff3300, #ff6600, #ff9900, #ffcc00, #ffff00);
+}
+
+.fire-large {
+  background: linear-gradient(to top, #ff0000, #ff4400, #ff7700, #ffaa00, #ffdd00, #ffff00);
+}
+
+.fire-huge {
+  background: linear-gradient(to top, #cc0000, #ff0000, #ff3300, #ff6600, #ff9900, #ffcc00, #ffff00);
+}
