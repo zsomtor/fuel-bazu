@@ -69,6 +69,25 @@ export default function Home() {
     }
   };
 
+  const handleRemoveHistory = async (timestamp: string) => {
+    try {
+      const response = await fetch('/api/fire/remove-history', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ timestamp }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFireState(data);
+      }
+    } catch (error) {
+      console.error('Error removing history entry:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 flex items-center justify-center">
@@ -80,16 +99,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-            Media Fire Tracker
-          </h1>
-          <p className="text-gray-400 text-base md:text-lg">
-            Keep the fire burning by publishing content
-          </p>
-        </div>
-
         {/* Stats */}
         <Stats
           streakDays={fireState.streakDays}
@@ -147,7 +156,7 @@ export default function Home() {
           </div>
 
           {/* History */}
-          <History history={fireState.history || []} />
+          <History history={fireState.history || []} onRemove={handleRemoveHistory} />
         </div>
       </div>
     </div>

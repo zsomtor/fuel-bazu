@@ -4,9 +4,10 @@ import { HistoryEntry } from '@/lib/types';
 
 interface HistoryProps {
   history: HistoryEntry[];
+  onRemove?: (timestamp: string) => void;
 }
 
-export default function History({ history }: HistoryProps) {
+export default function History({ history, onRemove }: HistoryProps) {
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleDateString('en-US', {
@@ -49,17 +50,26 @@ export default function History({ history }: HistoryProps) {
         {history.map((entry, index) => (
           <div
             key={`${entry.timestamp}-${index}`}
-            className="flex items-center justify-between bg-gray-900/30 rounded-lg px-4 py-2 border border-gray-700/20"
+            className="flex items-center justify-between gap-3 bg-gray-900/30 rounded-lg px-4 py-2 border border-gray-700/20 group hover:bg-gray-900/40 transition-colors"
           >
-            <div className="flex-1">
-              <div className="text-white text-sm font-medium">{entry.label}</div>
+            <div className="flex-1 min-w-0">
+              <div className="text-white text-sm font-medium truncate">{entry.label}</div>
               <div className="text-gray-500 text-xs">
                 {formatDate(entry.timestamp)} at {formatTime(entry.timestamp)}
               </div>
             </div>
-            <div className={`text-sm font-semibold ${getFuelColor(entry.fuelValue)}`}>
+            <div className={`text-sm font-semibold ${getFuelColor(entry.fuelValue)} flex-shrink-0`}>
               +{entry.fuelValue}
             </div>
+            {onRemove && (
+              <button
+                onClick={() => onRemove(entry.timestamp)}
+                className="flex-shrink-0 text-red-400 hover:text-red-300 opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2 py-1 hover:bg-red-900/20 rounded"
+                title="Remove from history"
+              >
+                ✕
+              </button>
+            )}
           </div>
         ))}
       </div>
