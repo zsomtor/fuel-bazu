@@ -3,6 +3,7 @@ export type ContentType =
   | 'facebook-post'
   | 'instagram-story'
   | 'random-tiktok'
+  | 'youtube-reel'
   | 'instagram-reel'
   | 'youtube-long-clip'
   | 'facebook-reel'
@@ -45,6 +46,7 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
   { id: 'facebook-post', label: 'Facebook Post', fuelValue: 2 },
   { id: 'instagram-story', label: 'Instagram Story', fuelValue: 3 },
   { id: 'random-tiktok', label: 'Random TikTok', fuelValue: 4 },
+  { id: 'youtube-reel', label: 'YouTube Reel', fuelValue: 4 },
   { id: 'instagram-reel', label: 'Instagram Reel', fuelValue: 5 },
   { id: 'youtube-long-clip', label: 'YouTube Long Clip', fuelValue: 6 },
   { id: 'facebook-reel', label: 'Facebook Reel', fuelValue: 7 },
