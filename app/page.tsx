@@ -88,6 +88,25 @@ export default function Home() {
     }
   };
 
+  const handleReset = async () => {
+    if (!confirm('Are you sure you want to reset the fire? This will clear all progress and history.')) {
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/fire/reset', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFireState(data);
+      }
+    } catch (error) {
+      console.error('Error resetting fire:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 flex items-center justify-center">
@@ -152,6 +171,16 @@ export default function Home() {
               <div className="text-gray-400 text-sm">
                 • History shows last 20 publications
               </div>
+            </div>
+
+            {/* Reset Button */}
+            <div className="mt-6 pt-4 border-t border-gray-700/30">
+              <button
+                onClick={handleReset}
+                className="w-full px-4 py-2 bg-gray-700/30 hover:bg-gray-700/50 border border-gray-600/50 text-gray-400 hover:text-gray-300 rounded-lg text-sm font-medium transition-all duration-200"
+              >
+                Reset Fire
+              </button>
             </div>
           </div>
 
