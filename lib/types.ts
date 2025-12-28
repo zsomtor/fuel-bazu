@@ -25,12 +25,19 @@ export interface LastAction {
   previousStreak: number;
 }
 
+export interface HistoryEntry {
+  label: string;
+  fuelValue: number;
+  timestamp: string;
+}
+
 export interface FireState {
   fireLevel: number;
   streakDays: number;
   lastActionDate: string | null;
   lastDecayCheck: string | null;
   lastAction: LastAction | null;
+  history: HistoryEntry[];
 }
 
 export const CONTENT_TYPES: ContentTypeConfig[] = [
@@ -50,3 +57,4 @@ export const CONTENT_TYPES: ContentTypeConfig[] = [
 export const MAX_FIRE_LEVEL = 100;
 export const INITIAL_FIRE_LEVEL = 10;
 export const DECAY_PER_DAY = 5;
+export const MAX_HISTORY_ENTRIES = 20;

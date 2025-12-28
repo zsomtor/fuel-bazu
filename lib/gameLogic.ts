@@ -1,4 +1,4 @@
-import { FireState, DECAY_PER_DAY, MAX_FIRE_LEVEL, INITIAL_FIRE_LEVEL } from './types';
+import { FireState, DECAY_PER_DAY, MAX_FIRE_LEVEL, INITIAL_FIRE_LEVEL, MAX_HISTORY_ENTRIES } from './types';
 
 /**
  * Calculate how many days have passed between two dates
@@ -65,6 +65,12 @@ export function addFuel(state: FireState, fuelValue: number, label: string): Fir
     newStreakDays = 1;
   }
 
+  // Add to history and keep only the last MAX_HISTORY_ENTRIES
+  const newHistory = [
+    { label, fuelValue, timestamp: now },
+    ...(state.history || []),
+  ].slice(0, MAX_HISTORY_ENTRIES);
+
   return {
     fireLevel: newFireLevel,
     streakDays: newStreakDays,
@@ -77,6 +83,7 @@ export function addFuel(state: FireState, fuelValue: number, label: string): Fir
       previousFireLevel: state.fireLevel,
       previousStreak: state.streakDays,
     },
+    history: newHistory,
   };
 }
 
@@ -88,11 +95,15 @@ export function undoLastAction(state: FireState): FireState {
     return state;
   }
 
+  // Remove the most recent history entry (the one we're undoing)
+  const newHistory = state.history.slice(1);
+
   return {
     ...state,
     fireLevel: state.lastAction.previousFireLevel,
     streakDays: state.lastAction.previousStreak,
     lastAction: null,
+    history: newHistory,
   };
 }
 
@@ -106,6 +117,7 @@ export function getInitialState(): FireState {
     lastActionDate: null,
     lastDecayCheck: new Date().toISOString(),
     lastAction: null,
+    history: [],
   };
 }
 

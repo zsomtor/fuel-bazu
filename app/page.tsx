@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import FireVisualization from '@/components/FireVisualization';
 import ContentButtons from '@/components/ContentButtons';
 import Stats from '@/components/Stats';
+import History from '@/components/History';
 import { FireState } from '@/lib/types';
 import { getInitialState } from '@/lib/gameLogic';
 
@@ -121,23 +122,32 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Info Box */}
-        <div className="mt-12 max-w-3xl mx-auto bg-gray-800/20 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6">
-          <h3 className="text-white font-semibold text-lg mb-3">How It Works</h3>
-          <div className="grid md:grid-cols-2 gap-3">
-            <div className="text-gray-400 text-sm">
-              • Each content type adds fuel to the fire
-            </div>
-            <div className="text-gray-400 text-sm">
-              • Fire decays by 5 points each day
-            </div>
-            <div className="text-gray-400 text-sm">
-              • Fire dies at 0, streak resets
-            </div>
-            <div className="text-gray-400 text-sm">
-              • Bigger content = more fuel
+        {/* Info Box and History - Side by Side */}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
+          {/* Info Box */}
+          <div className="bg-gray-800/20 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6">
+            <h3 className="text-white font-semibold text-lg mb-3">How It Works</h3>
+            <div className="space-y-2">
+              <div className="text-gray-400 text-sm">
+                • Each content type adds fuel to the fire
+              </div>
+              <div className="text-gray-400 text-sm">
+                • Fire decays by 5 points each day
+              </div>
+              <div className="text-gray-400 text-sm">
+                • Fire dies at 0, streak resets
+              </div>
+              <div className="text-gray-400 text-sm">
+                • Bigger content = more fuel
+              </div>
+              <div className="text-gray-400 text-sm">
+                • History shows last 20 publications
+              </div>
             </div>
           </div>
+
+          {/* History */}
+          <History history={fireState.history || []} />
         </div>
       </div>
     </div>
