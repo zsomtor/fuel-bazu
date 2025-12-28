@@ -160,7 +160,7 @@ export default function Home() {
                 • Each content type adds fuel to the fire
               </div>
               <div className="text-gray-400 text-sm">
-                • Fire decays by 5 points each day
+                • Decay accelerates: Day 1 (-7), Day 2 (-10), Day 3 (-13)...
               </div>
               <div className="text-gray-400 text-sm">
                 • Fire dies at 0, streak resets

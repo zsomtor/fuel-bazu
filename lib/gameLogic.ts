@@ -12,6 +12,15 @@ export function getDaysPassed(fromDate: string, toDate: string): number {
 }
 
 /**
+ * Calculate accelerating decay for N days
+ * Day 1: -7, Day 2: -10, Day 3: -13, etc. (+3 increase each day)
+ * Formula: 5.5N + 1.5N²
+ */
+function calculateAcceleratingDecay(days: number): number {
+  return Math.floor(5.5 * days + 1.5 * days * days);
+}
+
+/**
  * Apply decay to the fire based on days passed
  */
 export function applyDecay(state: FireState): FireState {
@@ -29,7 +38,8 @@ export function applyDecay(state: FireState): FireState {
     return state;
   }
 
-  const decayAmount = daysPassed * DECAY_PER_DAY;
+  // Use accelerating decay: 7, 10, 13, 16, etc.
+  const decayAmount = calculateAcceleratingDecay(daysPassed);
   const newFireLevel = Math.max(0, state.fireLevel - decayAmount);
 
   // If fire died, reset streak
