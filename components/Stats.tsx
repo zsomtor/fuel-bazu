@@ -43,25 +43,25 @@ export default function Stats({ streakDays, lastActionDate }: StatsProps) {
   };
 
   return (
-    <div className="flex gap-6 justify-center items-center mb-8">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-stretch sm:items-center mb-6 sm:mb-8">
       {/* Streak Counter */}
-      <div className="flex flex-col items-center bg-gradient-to-br from-amber-900/30 to-orange-900/30 backdrop-blur-sm px-8 py-4 rounded-lg border border-amber-700/30">
-        <div className="text-5xl font-bold text-amber-400 mb-1">
+      <div className="flex flex-col items-center bg-gradient-to-br from-amber-900/30 to-orange-900/30 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 rounded-lg border border-amber-700/30">
+        <div className="text-4xl sm:text-5xl font-bold text-amber-400 mb-1">
           {streakDays}
         </div>
-        <div className="text-sm text-amber-200 uppercase tracking-wider">
+        <div className="text-xs sm:text-sm text-amber-200 uppercase tracking-wider">
           Day Streak 🔥
         </div>
       </div>
 
       {/* Last Action */}
-      <div className="flex flex-col items-center bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm px-8 py-4 rounded-lg border border-gray-700/30 min-w-[200px]">
+      <div className="flex flex-col items-center bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 rounded-lg border border-gray-700/30 flex-1 sm:flex-none sm:min-w-[200px]">
         {lastActionDate ? (
           <>
-            <div className="text-lg font-semibold text-gray-200">
+            <div className="text-base sm:text-lg font-semibold text-gray-200">
               {formatDate(lastActionDate)}
             </div>
-            <div className="text-xl font-bold text-white mb-1">
+            <div className="text-lg sm:text-xl font-bold text-white mb-1">
               {formatTime(lastActionDate)}
             </div>
             <div className="text-xs text-gray-500">
@@ -69,7 +69,7 @@ export default function Stats({ streakDays, lastActionDate }: StatsProps) {
             </div>
           </>
         ) : (
-          <div className="text-xl font-semibold text-gray-400 py-2">
+          <div className="text-lg sm:text-xl font-semibold text-gray-400 py-2">
             Never
           </div>
         )}

@@ -24,9 +24,9 @@ export default function ContentButtons({ onAddFuel, disabled }: ContentButtonsPr
 
   return (
     <div className="w-full">
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold text-white mb-1">Publish Content</h2>
-        <p className="text-gray-400 text-sm">Select what you published</p>
+      <div className="mb-3 sm:mb-4">
+        <h2 className="text-lg sm:text-xl font-semibold text-white mb-1">Publish Content</h2>
+        <p className="text-gray-400 text-xs sm:text-sm">Select what you published</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
