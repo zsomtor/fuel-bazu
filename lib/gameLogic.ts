@@ -1,12 +1,19 @@
 import { FireState, DECAY_PER_DAY, MAX_FIRE_LEVEL, INITIAL_FIRE_LEVEL, MAX_HISTORY_ENTRIES } from './types';
 
 /**
- * Calculate how many days have passed between two dates
+ * Calculate how many calendar days have passed between two dates
+ * Uses calendar days, not 24-hour periods
+ * Example: Dec 29 11:59 PM → Dec 30 12:01 AM = 1 day
  */
 export function getDaysPassed(fromDate: string, toDate: string): number {
   const from = new Date(fromDate);
   const to = new Date(toDate);
-  const diffTime = Math.abs(to.getTime() - from.getTime());
+
+  // Set both dates to midnight (start of day) to compare calendar days
+  from.setHours(0, 0, 0, 0);
+  to.setHours(0, 0, 0, 0);
+
+  const diffTime = to.getTime() - from.getTime();
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
 }
