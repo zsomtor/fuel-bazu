@@ -46,7 +46,7 @@ export function applyDecay(state: FireState): FireState {
 /**
  * Add fuel to the fire
  */
-export function addFuel(state: FireState, fuelValue: number): FireState {
+export function addFuel(state: FireState, fuelValue: number, label: string): FireState {
   const now = new Date().toISOString();
   const today = new Date().toDateString();
   const lastActionDay = state.lastActionDate
@@ -70,6 +70,29 @@ export function addFuel(state: FireState, fuelValue: number): FireState {
     streakDays: newStreakDays,
     lastActionDate: now,
     lastDecayCheck: now,
+    lastAction: {
+      fuelValue,
+      label,
+      timestamp: now,
+      previousFireLevel: state.fireLevel,
+      previousStreak: state.streakDays,
+    },
+  };
+}
+
+/**
+ * Undo the last action
+ */
+export function undoLastAction(state: FireState): FireState {
+  if (!state.lastAction) {
+    return state;
+  }
+
+  return {
+    ...state,
+    fireLevel: state.lastAction.previousFireLevel,
+    streakDays: state.lastAction.previousStreak,
+    lastAction: null,
   };
 }
 
@@ -82,6 +105,7 @@ export function getInitialState(): FireState {
     streakDays: 0,
     lastActionDate: null,
     lastDecayCheck: new Date().toISOString(),
+    lastAction: null,
   };
 }
 

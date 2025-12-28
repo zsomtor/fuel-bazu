@@ -17,11 +17,20 @@ export interface ContentTypeConfig {
   fuelValue: number;
 }
 
+export interface LastAction {
+  fuelValue: number;
+  label: string;
+  timestamp: string;
+  previousFireLevel: number;
+  previousStreak: number;
+}
+
 export interface FireState {
   fireLevel: number;
   streakDays: number;
   lastActionDate: string | null;
   lastDecayCheck: string | null;
+  lastAction: LastAction | null;
 }
 
 export const CONTENT_TYPES: ContentTypeConfig[] = [

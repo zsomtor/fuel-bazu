@@ -6,8 +6,28 @@ interface StatsProps {
 }
 
 export default function Stats({ streakDays, lastActionDate }: StatsProps) {
-  const formatLastAction = (date: string | null) => {
-    if (!date) return 'Never';
+  const formatDate = (date: string | null) => {
+    if (!date) return null;
+    const actionDate = new Date(date);
+    return actionDate.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
+  const formatTime = (date: string | null) => {
+    if (!date) return null;
+    const actionDate = new Date(date);
+    return actionDate.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
+  const formatRelativeTime = (date: string | null) => {
+    if (!date) return null;
 
     const actionDate = new Date(date);
     const now = new Date();
@@ -18,12 +38,12 @@ export default function Stats({ streakDays, lastActionDate }: StatsProps) {
 
     if (diffDays > 0) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
     if (diffHours > 0) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    if (diffMinutes > 0) return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+    if (diffMinutes > 0) return `${diffMinutes} min ago`;
     return 'Just now';
   };
 
   return (
-    <div className="flex gap-8 justify-center items-center mb-8">
+    <div className="flex gap-6 justify-center items-center mb-8">
       {/* Streak Counter */}
       <div className="flex flex-col items-center bg-gradient-to-br from-amber-900/30 to-orange-900/30 backdrop-blur-sm px-8 py-4 rounded-lg border border-amber-700/30">
         <div className="text-5xl font-bold text-amber-400 mb-1">
@@ -35,11 +55,25 @@ export default function Stats({ streakDays, lastActionDate }: StatsProps) {
       </div>
 
       {/* Last Action */}
-      <div className="flex flex-col items-center bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm px-8 py-4 rounded-lg border border-gray-700/30">
-        <div className="text-2xl font-semibold text-gray-300 mb-1">
-          {formatLastAction(lastActionDate)}
-        </div>
-        <div className="text-sm text-gray-400 uppercase tracking-wider">
+      <div className="flex flex-col items-center bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm px-8 py-4 rounded-lg border border-gray-700/30 min-w-[200px]">
+        {lastActionDate ? (
+          <>
+            <div className="text-lg font-semibold text-gray-200">
+              {formatDate(lastActionDate)}
+            </div>
+            <div className="text-xl font-bold text-white mb-1">
+              {formatTime(lastActionDate)}
+            </div>
+            <div className="text-xs text-gray-500">
+              {formatRelativeTime(lastActionDate)}
+            </div>
+          </>
+        ) : (
+          <div className="text-xl font-semibold text-gray-400 py-2">
+            Never
+          </div>
+        )}
+        <div className="text-xs text-gray-500 uppercase tracking-wider mt-1">
           Last Published
         </div>
       </div>

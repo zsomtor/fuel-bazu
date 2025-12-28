@@ -23,33 +23,34 @@ export default function ContentButtons({ onAddFuel, disabled }: ContentButtonsPr
   };
 
   return (
-    <div className="w-full max-w-4xl">
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">Add Fuel to the Fire</h2>
-        <p className="text-gray-400">Click a content type to keep the fire burning!</p>
+    <div className="w-full">
+      <div className="mb-4">
+        <h2 className="text-xl font-semibold text-white mb-1">Publish Content</h2>
+        <p className="text-gray-400 text-sm">Select what you published</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {CONTENT_TYPES.map((contentType) => (
           <button
             key={contentType.id}
             onClick={() => onAddFuel(contentType.fuelValue, contentType.label)}
             disabled={disabled}
             className={`
-              relative px-4 py-3 rounded-lg font-semibold text-white
+              relative px-3 py-3 rounded-xl font-medium text-white
               bg-gradient-to-br ${getButtonColor(contentType.fuelValue)}
-              shadow-lg hover:shadow-xl transform hover:scale-105
+              border border-white/10
+              shadow-md hover:shadow-lg transform hover:scale-105
               transition-all duration-200
               disabled:opacity-50 disabled:cursor-not-allowed
               disabled:hover:scale-100
             `}
           >
             <div className="flex flex-col items-center gap-1">
-              <span className="text-2xl">{getFuelEmoji(contentType.fuelValue)}</span>
+              <span className="text-xl">{getFuelEmoji(contentType.fuelValue)}</span>
               <span className="text-xs text-center leading-tight">
                 {contentType.label}
               </span>
-              <span className="text-xs opacity-75">+{contentType.fuelValue}</span>
+              <span className="text-[10px] opacity-60 font-normal">+{contentType.fuelValue}</span>
             </div>
           </button>
         ))}
